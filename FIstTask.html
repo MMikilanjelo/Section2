@@ -10,7 +10,7 @@
 <h2>Опитування</h2>
 <form id="surveyForm">
     <label for="faculty">На якому факультеті ви навчаєтесь:</label>
-    <select id="faculty" name="faculty">
+    <select id="faculty" name="faculty" required>
         <option value="">Оберіть факультет</option>
         <option value="engineering">Інженерія</option>
         <option value="science">Науки</option>
@@ -18,10 +18,14 @@
     </select><br><br>
 
     <label for="interviewDate">Виберіть дату співбесіди:</label><br>
-    <input type="date" id="interviewDate" name="interviewDate"><br><br>
+    <input type="date" id="interviewDate" name="interviewDate" required><br><br>
 
     <label for="interviewTime">Виберіть час співбесіди:</label><br>
-    <input type="time" id="interviewTime" name="interviewTime"><br><br>
+    <input type="time" id="interviewTime" name="interviewTime" required>
+    <button id="clearTimeButton">Очистити</button><br><br>
+
+    <label for="averageScore">Вкажіть середній бал:</label><br>
+    <input type="number" id="averageScore" name="averageScore" required><br><br>
 
     <input type="submit" value="Відправити">
 </form>
@@ -30,7 +34,7 @@
     <!-- Тут будуть відображатися результати опитування -->
 </div>
 
-<!-- Поле вибору факультету та кнопка "Фільтрувати за факультетом" -->
+
 <label for="filterFaculty">Фільтрувати за факультетом:</label>
 <select id="filterFaculty">
     <option value="">Оберіть факультет</option>
@@ -40,17 +44,24 @@
 </select>
 <button id="filterByFacultyButton">Фільтрувати</button>
 
-<!-- Поле вибору дати і часу співбесіди та кнопка "Фільтрувати за датою і часом" -->
+
 <label for="filterDate">Фільтрувати за датою співбесіди:</label><br>
 <input type="date" id="filterDate" name="filterDate">
 <label for="filterTime">Фільтрувати за часом співбесіди:</label><br>
 <input type="time" id="filterTime" name="filterTime">
 <button id="filterByDateTimeButton">Фільтрувати</button>
 
+
+<label for="filterGrade">Фільтрувати за середнім балом:</label><br>
+<input type="number" id="filterGrade" name="filterGrade">
+<button id="filterByGradeButton">Фільтрувати</button>
+
 <script>
     const form = document.getElementById('surveyForm');
     const filterByFacultyButton = document.getElementById('filterByFacultyButton');
     const filterByDateTimeButton = document.getElementById('filterByDateTimeButton');
+    const filterByGradeButton = document.getElementById('filterByGradeButton');
+    const filterTimeInput = document.getElementById('filterTime');
 
     form.addEventListener('submit', function(event) {
         event.preventDefault();
@@ -68,44 +79,44 @@
         
         alert('Опитування відправлено!');
         form.reset();
-        console.log(surveys);
         displaySurveyResults(); 
     });
 
-    filterByFacultyButton.addEventListener('click', function() {
-        displaySurveyResults(); 
-    });
-
-    filterByDateTimeButton.addEventListener('click', function() {
-        displaySurveyResults(); 
-    });
+    filterByFacultyButton.addEventListener('click', displaySurveyResults);
+    filterByDateTimeButton.addEventListener('click', displaySurveyResults);
+    filterByGradeButton.addEventListener('click', displaySurveyResults);
 
     function displaySurveyResults() {
         const surveys = JSON.parse(localStorage.getItem('surveys')) || [];
         const filterFaculty = document.getElementById('filterFaculty').value;
         const filterDate = document.getElementById('filterDate').value;
         const filterTime = document.getElementById('filterTime').value;
+        const filterGrade = document.getElementById('filterGrade').value;
 
-        let filteredSurveys = surveys;
+        let filteredSurveys = surveys.filter(survey => {
+            if (filterFaculty && survey.faculty !== filterFaculty) return false;
+            if (filterDate && survey.interviewDate !== filterDate) return false;
+            if (filterTime && survey.interviewTime !== filterTime) return false;
+            if (filterGrade && parseFloat(survey.averageScore) !== parseInt(filterGrade)) return false;
+            return true;
+        });
 
-        if (filterFaculty) {
-            filteredSurveys = filteredSurveys.filter(survey => survey.faculty === filterFaculty);
-        }
+        displayFilteredResults(filteredSurveys);
+    }
 
-        if (filterDate && filterTime) {
-            filteredSurveys = filteredSurveys.filter(survey => survey.interviewDate === filterDate && survey.interviewTime === filterTime);
-        }
+    function displayFilteredResults(surveys) {
+        const resultContainer = document.getElementById('surveyResults');
+        resultContainer.innerHTML = '';
 
-        document.getElementById('surveyResults').innerHTML = '';
+        const header = document.createElement('h3');
+        header.textContent = 'Результати опитування';
+        resultContainer.appendChild(header);
 
-        const resultContainer = document.createElement('div');
-        resultContainer.innerHTML = '<h3>Результати опитування</h3>';
-        filteredSurveys.forEach(survey => {
+        surveys.forEach(survey => {
             const surveyItem = document.createElement('div');
-            surveyItem.textContent = `Факультет: ${survey.faculty}, Дата співбесіди: ${survey.interviewDate}, Час співбесіди: ${survey.interviewTime}`;
+            surveyItem.textContent = `Факультет: ${survey.faculty}, Дата співбесіди: ${survey.interviewDate}, Час співбесіди: ${survey.interviewTime}, Середній бал: ${survey.averageScore}`;
             resultContainer.appendChild(surveyItem);
         });
-        document.getElementById('surveyResults').appendChild(resultContainer);
     }
 
     displaySurveyResults();
