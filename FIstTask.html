@@ -9,7 +9,7 @@
 
 <h2>Опитування</h2>
 <form id="surveyForm">
-    <label for="faculty">На якому факультеті ви навчаєтесь:</label>
+    <label for="faculty">На якому факультеті ви навчаєтесь:</label><br>
     <select id="faculty" name="faculty" required>
         <option value="">Оберіть факультет</option>
         <option value="engineering">Інженерія</option>
@@ -17,15 +17,51 @@
         <option value="arts">Мистецтва</option>
     </select><br><br>
 
-    <label for="interviewDate">Виберіть дату співбесіди:</label><br>
-    <input type="date" id="interviewDate" name="interviewDate" required><br><br>
+    <label>Виберіть потік на якому ви навчаєтесь:</label><br>
+    <input type="radio" id="stream1" name="stream" value="stream1" required>
+    <label for="stream1">Потік 1</label><br>
+    <input type="radio" id="stream2" name="stream" value="stream2">
+    <label for="stream2">Потік 2</label><br>
+    <input type="radio" id="stream3" name="stream" value="stream3">
+    <label for="stream3">Потік 3</label><br><br>
 
-    <label for="interviewTime">Виберіть час співбесіди:</label><br>
-    <input type="time" id="interviewTime" name="interviewTime" required>
-    <button id="clearTimeButton">Очистити</button><br><br>
+    <label>Вкажіть групу:</label><br>
+    <input type="checkbox" id="group1" name="group[]" value="group1" required>
+    <label for="group1">Група 1</label><br>
+    <input type="checkbox" id="group2" name="group[]" value="group2" required>
+    <label for="group2">Група 2</label><br>
+    <input type="checkbox" id="group3" name="group[]" value="group3" required>
+    <label for="group3">Група 3</label><br><br>
+
+    <label for="interviewDateTime">Виберіть зручний час для проходження співбесіди:</label><br>
+    <input type="datetime-local" id="interviewDateTime" name="interviewDateTime" required><br><br>
 
     <label for="averageScore">Вкажіть середній бал:</label><br>
     <input type="number" id="averageScore" name="averageScore" required><br><br>
+
+    <!-- Додані додаткові питання -->
+    <label for="comment">Додаткові коментарі:</label><br>
+    <textarea id="comment" name="comment" rows="4" cols="50" required></textarea><br><br>
+
+    <label for="email">Ваша електронна пошта:</label><br>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <label for="phone">Ваш номер телефону:</label><br>
+    <input type="tel" id="phone" name="phone" required><br><br>
+
+    <!-- Додані питання, що використовують інші типи форм -->
+    <label for="favoriteDay">Виберіть ваш улюблений день тижня:</label><br>
+    <input type="week" id="favoriteDay" name="favoriteDay" required><br><br>
+
+    <label for="birthDate">Ваша дата народження:</label><br>
+    <input type="date" id="birthDate" name="birthDate" required><br><br>
+
+    <label for="preferredTime">Виберіть час, коли вам зручно проводити опитування:</label><br>
+    <input type="time" id="preferredTime" name="preferredTime" required><br><br>
+
+    <label for="satisfactionLevel">Ваш рівень задоволення навчанням:</label><br>
+    <input type="range" id="satisfactionLevel" name="satisfactionLevel" min="1" max="10" required><br><br>
+    <!-- Кінець додавання питань -->
 
     <input type="submit" value="Відправити">
 </form>
@@ -33,7 +69,6 @@
 <div id="surveyResults">
     <!-- Тут будуть відображатися результати опитування -->
 </div>
-
 
 <label for="filterFaculty">Фільтрувати за факультетом:</label>
 <select id="filterFaculty">
@@ -114,7 +149,12 @@
 
         surveys.forEach(survey => {
             const surveyItem = document.createElement('div');
-            surveyItem.textContent = `Факультет: ${survey.faculty}, Дата співбесіди: ${survey.interviewDate}, Час співбесіди: ${survey.interviewTime}, Середній бал: ${survey.averageScore}`;
+            surveyItem.textContent = 
+            `Факультет: ${survey.faculty},
+             Дата співбесіди: ${survey.interviewDate}, 
+             Час співбесіди: ${survey.interviewTime}, 
+             Середній бал: ${survey.averageScore} , 
+             Коментар ${survey.comment}`;
             resultContainer.appendChild(surveyItem);
         });
     }
