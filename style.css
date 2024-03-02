@@ -1,0 +1,15 @@
+.question {
+  margin-bottom: 20px;
+}
+
+.question div {
+  margin-bottom: 10px;
+}
+
+.correct {
+  color: green;
+}
+
+.incorrect {
+  color: red;
+}

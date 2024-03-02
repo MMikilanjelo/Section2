@@ -1,0 +1,50 @@
+{
+  "testName": "HTML Test",
+  "questions": [
+    {
+      "question": "What does HTML stand for?",
+      "answers": [
+        {"answer": "Hyper Text Markup Language", "isCorrect": true},
+        {"answer": "Hyperlinks and Text Markup Language", "isCorrect": false},
+        {"answer": "Home Tool Markup Language", "isCorrect": false},
+        {"answer": "Hyper Tool Markup Language", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "Which of the following is an example of a block-level element in HTML?",
+      "answers": [
+        {"answer": "div", "isCorrect": true},
+        {"answer": "span", "isCorrect": false},
+        {"answer": "a", "isCorrect": false},
+        {"answer": "break", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "What is the correct HTML tag for inserting a line break?",
+      "answers": [
+        {"answer": "br", "isCorrect": true},
+        {"answer": "break", "isCorrect": false},
+        {"answer": "lb", "isCorrect": false},
+        {"answer": "newline", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "What does the 'alt' attribute in an <img> tag provide?",
+      "answers": [
+        {"answer": "Alternative text for the image", "isCorrect": true},
+        {"answer": "Alignment for the image", "isCorrect": false},
+        {"answer": "Alternative link for the image", "isCorrect": false},
+        {"answer": "Attribute list for the image", "isCorrect": false}
+      ]
+    },
+    {
+      "question": "What does the <head> tag contain in HTML?",
+      "answers": [
+        {"answer": "Metadata about the HTML document", "isCorrect": true},
+        {"answer": "The main content of the HTML document", "isCorrect": false},
+        {"answer": "The footer of the HTML document", "isCorrect": false},
+        {"answer": "The header of the HTML document", "isCorrect": false}
+      ]
+    }
+  ]
+}
