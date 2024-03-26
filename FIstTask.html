@@ -129,7 +129,7 @@
         let filteredSurveys = surveys.filter(survey => {
             if (filterFaculty && survey.faculty !== filterFaculty) return false;
             if (filterDate && survey.interviewDate !== filterDate) return false;
-            if (filterTime && survey.interviewTime !== filterTime) return false;
+            if (filterTime && survey.preferredTime !== filterTime) return false;
             if (filterGrade && parseFloat(survey.averageScore) !== parseInt(filterGrade)) return false;
             return true;
         });
@@ -149,10 +149,11 @@
             const surveyItem = document.createElement('div');
             surveyItem.textContent = 
             `Факультет: ${survey.faculty},
-             Дата співбесіди: ${survey.interviewDate}, 
-             Час співбесіди: ${survey.interviewTime}, 
+             Дата співбесіди: ${survey.interviewDateTime}, 
+             Час співбесіди: ${survey.preferredTime}, 
              Середній бал: ${survey.averageScore} , 
              Коментар ${survey.comment}`;
+
             resultContainer.appendChild(surveyItem);
         });
     }
